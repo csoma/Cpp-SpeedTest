@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if command -v siege > /dev/null
+then
+    siege -c 100 -r 90 -b http://127.0.0.1:9090/
+    exit 0
+else
+    echo 'Install and set up Siege'
+    echo 'http://www.joedog.org/siege-home/'
+    echo 'http://freecode.com/projects/siege'
+    echo 'brew install siege'
+    echo 'siege.config'
+    echo 'siege -C'
+    echo 'siege -h'
+    echo 'Mac OS X has only 16K ports available that will not be released until socket 15 sec is passed.'
+    echo 'Check the current wait time:'
+    echo '    # sysctl net.inet.tcp.msl'
+    echo '    net.inet.tcp.msl: 15000'
+    echo 'Decrease to wait time to 1 sec:'
+    echo '    # sudo sysctl -w net.inet.tcp.msl=1000'
+    echo '    net.inet.tcp.msl: 15000 -> 1000'
+    exit 1
+fi

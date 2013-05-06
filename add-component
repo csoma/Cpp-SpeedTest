@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# See http://chrisjean.com/2009/04/20/git-submodules-adding-using-removing-and-updating/
+
+if [ $# -ne 2 ]
+then
+  echo Usage: $0 https://github.com/repo/component.git component-name
+  exit 1
+fi
+
+echo Adding $2 from $1
+git submodule add $1 component/$2
+echo Done.
