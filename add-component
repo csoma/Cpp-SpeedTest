@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# See http://chrisjean.com/2009/04/20/git-submodules-adding-using-removing-and-updating/
+# See also: http://chrisjean.com/2009/04/20/git-submodules-adding-using-removing-and-updating/
 
 if [ $# -ne 2 ]
 then

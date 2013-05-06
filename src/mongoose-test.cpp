@@ -41,7 +41,7 @@ int main(void) {
   memset(&callbacks, 0, sizeof(callbacks));
   callbacks.begin_request = begin_request_handler;
   
-  // Start the web server.
+  // Start the web server
   ctx = mg_start(&callbacks, NULL, options);
   
   // Wait until user hits "enter". Server is running in separate thread.

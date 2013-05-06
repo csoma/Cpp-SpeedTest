@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 echo Creating XCode project
 echo
 
@@ -10,8 +9,7 @@ mkdir bin 2>/dev/null
 cd bin
 cmake -G Xcode ..
 
-
 echo
 echo Launching XCode...
 echo
-open -a XCode SpeedTest.xcodeproj --args -license
+open -a XCode SpeedTest.xcodeproj

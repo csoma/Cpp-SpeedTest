@@ -1,10 +1,9 @@
 # CMake file
 
 cmake_minimum_required(VERSION 2.6.0 FATAL_ERROR)
+
 message("\nCMake started")
-
 project(SpeedTest)
-
 
 # Debug mode
 SET(CMAKE_BUILD_TYPE "Debug")
@@ -110,7 +109,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${MY_COMPILE_FLAGS}")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${MY_COMPILE_FLAGS}")
 
 
-# -------------
+# ------------- Poco Test
 message("Poco Test")
 include_directories(${ALL_INCLUDE})
 SET(P1_SOURCES
@@ -123,7 +122,7 @@ add_executable(Test-Poco WIN32 ${P1_SOURCES} )
 target_link_libraries(Test-Poco ${ALL_LIBS} ${POCO_ALL_LIBRARIES})
 
 
-# -------------
+# ------------- Mongoose Test
 message("Mongoose Test")
 include_directories(${ALL_INCLUDE})
 SET(P2_SOURCES

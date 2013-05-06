@@ -2,7 +2,7 @@
 
 if command -v siege > /dev/null
 then
-    siege -c 100 -r 90 -b http://127.0.0.1:9090/
+    siege -c 100 -r 90 http://127.0.0.1:9090/
     exit 0
 else
     echo 'Install and set up Siege'

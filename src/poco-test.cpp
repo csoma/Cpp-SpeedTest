@@ -73,8 +73,6 @@ protected:
   }
 };
 
-
-
 int main(int argc, char* argv[])
 {
   MyServerApp app;
