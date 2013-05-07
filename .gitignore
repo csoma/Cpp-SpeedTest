@@ -1,6 +1,15 @@
 # Bin folder
 bin/
 
+# Mac
+.DS_Store
+
+# Windows
+[Dd]esktop.ini
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+
 
 # Compiled Object files
 *.slo
@@ -9,9 +18,62 @@ bin/
 
 # Compiled Dynamic libraries
 *.so
+*.so.*
 *.dylib
+*.dll
 
 # Compiled Static libraries
 *.lai
 *.la
 *.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+# Visual Studio
+*.suo
+*.user
+*.sln.docstates
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.log
+*.scc
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.cachefile
+
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+[Ee]xpress/
+ipch/

@@ -83,11 +83,8 @@ set(MONGOOSE_ALL_LIBRARIES  "libmongoose")
 message("LibMongoose was added\n")
 
 
-################# End of Components #######################
 
-# To makes sure the settings are correct
-message(STATUS "All include folders: ${ALL_INCLUDE}")
-message(STATUS "All libraries: ${ALL_LIBS}")
+################# End of Components #######################
 
 IF(WIN32)
   SET(ALL_LIBS ws2_32.lib ${COMPONENT_LIBS})
@@ -107,6 +104,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MY_COMPILE_FLAGS}")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${MY_COMPILE_FLAGS}")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${MY_COMPILE_FLAGS}")
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${MY_COMPILE_FLAGS}")
+
+# To makes sure the settings are correct
+message(STATUS "All include folders: ${ALL_INCLUDE}")
+message(STATUS "All libraries: ${ALL_LIBS}")
 
 
 # ------------- Poco Test
