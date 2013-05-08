@@ -2,19 +2,20 @@
 
 if command -v cmake > /dev/null
 then
-    echo Creating XCode project
+    echo Creating makefiles
     echo
 
     git submodule init
     git submodule update
     mkdir bin 2>/dev/null
     cd bin
-    cmake -G Xcode ..
+    cmake ..
 
     echo
-    echo Launching XCode...
+    echo Compiling tests
     echo
-    open -a XCode SpeedTest.xcodeproj
+    make Test-Poco
+    make Test-Mongoose
 
     exit 0
 else
