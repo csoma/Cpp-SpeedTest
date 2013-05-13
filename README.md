@@ -11,6 +11,7 @@ Observed performance after several runs on MacBook Pro laptop:
 
 * Mongoose: 9,100 - 11,688 transactions/second (9700 t/s average), 1-2% error rate
 * Poco:     7,120 -  9,473 transactions/second (8300 t/s average), no errors
+* nginx:    7,142 - 11,843 transactions/second (8700 t/s average), no errors (4 workers, no optimization)
 
 All tested using the same command: `siege -c 100 -r 90 -b http://127.0.0.1:9090/`
 
@@ -62,7 +63,7 @@ Steps:
 * Run "start-XCode": `cd Cpp-SpeedTest; ./start-XCode`
 * Select the desired target (Test-Poco, Test-Mongoose)
 * Click Run
-* Recommended: reduce socket time out to 1sec (see the "run-siege" file)
+* Recommended: reduce socket time-out to 1sec (see the "run-siege" file)
 * From command line start "run-siege"
 
 

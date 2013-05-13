@@ -2,7 +2,13 @@
 
 if command -v siege > /dev/null
 then
-    siege -c 100 -r 90 http://127.0.0.1:9090/
+    echo Socket timeout:
+    sysctl net.inet.tcp.msl
+    echo
+    command="siege -b -c 100 -r 90 --log=/dev/null $* http://127.0.0.1:9090/"
+    echo Command: $command
+    echo
+    $command
     exit 0
 else
     echo 'Install and set up Siege'
