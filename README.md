@@ -7,15 +7,15 @@ Written just to get an idea, it is not meant to be scientific.
 
 ## Results
 
-Throughput after several runs on MacBook Pro laptop:
+Throughput after several runs on MacBook Pro laptop (transactions/second - larger is better):
 
-| Lib | Trans./sec | Average | Notes |
-|-----|-----------:|--------:|-------|
-| Mongoose | 9,100 - 11,688  | 9,700 | 1-2% error rate |
-| Poco     | 7,120 -  9,473  | 8,300 | no errors |
-| nginx    | 7,142 - 11,843  | 8,700 | no errors (4 workers, no optimization) |
-| [Kore](https://github.com/jorisvink/kore/issues/33) https | 357 | 357 | no errors |
-| Kore http | 4,326 - 11,588 | 9,300 | no errors (unsupported http mode) |
+| Lib | Min | Max | Average | Notes |
+|-----|-----------:|----:|--------:|-------|
+| Mongoose | 9,100 | 11,688  | 9,700 | 1-2% error rate |
+| Poco     | 7,120 |  9,473  | 8,300 | no errors |
+| nginx    | 7,142 | 11,843  | 8,700 | no errors (4 workers, no optimization) |
+| [Kore](https://github.com/jorisvink/kore/issues/33) https | 357 | 357 | 357 | no errors |
+| Kore http | 4,326 | 11,588 | 9,300 | no errors (unsupported http mode) |
 
 All tested using the same command: `siege -c 100 -r 90 -b http://127.0.0.1:9090/`
 
@@ -27,6 +27,8 @@ All tested using the same command: `siege -c 100 -r 90 -b http://127.0.0.1:9090/
 
 ## Other libraries
 
+(In no particular order)
+
 Tested and ruled out several other libraries / frameworks.
 
 I'm looking for smaller free components and ideally should be production quality on Linux and at least development quality on Mac and Windows.
@@ -35,7 +37,7 @@ If you think my assessment below is incorrect, please contact me: csabacsoma at 
 
 ### Facebook Proxygen
 
-BSD + [Facebook blanket patent protection](https://github.com/facebook/proxygen/blob/master/PATENTS) (see [discussion](https://news.ycombinator.com/item?id=8985541))
+BSD + [Facebook blanket patent protection](https://github.com/facebook/proxygen/blob/master/PATENTS) (see [discussion](https://news.ycombinator.com/item?id=8985541)) <br>
 https://github.com/facebook/proxygen <br>
 Depends on Boost 1.51+, FB thrift and a long slew of other libraries (I counted 86).
 
@@ -52,9 +54,8 @@ http://cppcms.com/wikipp/en/page/main
 
 ### Wt
 
-GNU and commercial<br>
-http://www.webtoolkit.eu/wt<br>
-GPL or pay
+GPL and commercial<br>
+http://www.webtoolkit.eu/wt
 
 ### Klone
 
@@ -67,6 +68,11 @@ Targets embedded systems, no Mac support
 LGPL v3<br>
 http://www.tntnet.org/<br>
 [No CMake support](http://www.mail-archive.com/tntnet-general@lists.sourceforge.net/msg00583.html), although [there's an attempt](http://stackoverflow.com/questions/16193343/cmake-with-regarding-generated-files). Just for testing I did not wanted to install cxxtools.
+
+### Libmicrohttpd
+
+LGPL v2.1 <br>
+http://www.gnu.org/software/libmicrohttpd/
 
 ### EasySoap++
 
@@ -81,8 +87,9 @@ http://www.cs.fsu.edu/~engelen/soap.html
 ### ffead-cpp
 
 Apache 2.0<br>
-https://code.google.com/p/ffead-cpp/<br>
-Looks promising, but I saw too many "deprecated" and "warning" messages during compile. Maybe in the future.
+Old: https://code.google.com/p/ffead-cpp/<br>
+https://github.com/sumeetchhetri/ffead-cpp <br>
+Many "deprecated" and "warning" messages during compile. According to readme it is based on POCO.
 
 ### staff
 
@@ -115,17 +122,49 @@ Boost based
 
 BSD <br>
 https://github.com/mattgodbolt/seasocks <br>
-epoll based (Mac has kqueue instead)
+Runs on Linux only: epoll based (Mac has kqueue instead)<br>
+On Linux: [1,198.27 trans/sec vs Kore's 11,688.31 trans/sec](https://github.com/mattgodbolt/seasocks/issues/2#issuecomment-105928113)
 
+### ACE + TAO + JAWS
+
+License: ? <br>
+https://github.com/cflowe/ACE <br>
+Last commit: Oct 14, 2013
 
 ### ngnix module
 
 Since NGINX doesn't have a shared module system, it will have to be recompiled every time we want to run the module.
 Also it ties to app to ngnix.
 
-### See also
+### CPoll CPP
 
-Wikipedia: http://en.wikipedia.org/wiki/Comparison_of_web_application_frameworks
+GPL <br>
+http://sourceforge.net/projects/cpollcppsp/
+
+
+### Ulib
+
+GPL <br>
+https://github.com/stefanocasazza/ULib
+
+### Treefrog
+
+BSD <br>
+https://github.com/treefrogframework/treefrog-framework <br>
+Speed: [18% of ulib](https://www.techempower.com/benchmarks/)
+
+### ppC++
+
+GPL <br>
+http://sourceforge.net/projects/ppcpp/ <br>
+Last Update: 2013-03-19
+
+
+### CSP
+
+? <br>
+http://www.micronovae.com/CSP.html <br>
+Abandoned
 
 # Running the tests
 
@@ -183,3 +222,10 @@ ln -s /usr/lib/gcc-snapshot/bin/c++ /usr/bin/c++
 ln -s /usr/lib/gcc-snapshot/bin/cpp /usr/bin/cpp</pre>
    * You might need to [upgrade Linux](http://www.unixmen.com/how-to-upgrade-from-ubuntu-1004-1010-1104-to-ubuntu-1110-oneiric-ocelot-desktop-a-server/) if you have older than Ubuntu 12.04
    * More details about C++11 support in gcc: http://kjellkod.wordpress.com/2012/06/02/g2log-now-with-mainstream-c11-implementation/#more-589
+
+# See also
+
+* Wikipedia: http://en.wikipedia.org/wiki/Comparison_of_web_application_frameworks
+* C++ web frameworks (read the comments too): http://www.baryudin.com/articles/software/c-plus-plus-web-development-framework.html
+* TechEmpower code: https://github.com/TechEmpower/FrameworkBenchmarks/tree/master/frameworks/C%2B%2B
+* TechEmpower results: http://www.techempower.com/benchmarks/
