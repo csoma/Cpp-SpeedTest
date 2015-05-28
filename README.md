@@ -9,11 +9,13 @@ Written just to get an idea, it is not meant to be scientific.
 
 Throughput after several runs on MacBook Pro laptop:
 
-* Mongoose: 9,100 - 11,688 transactions/second (9700 t/s average), 1-2% error rate
-* Poco:     7,120 -  9,473 transactions/second (8300 t/s average), no errors
-* nginx:    7,142 - 11,843 transactions/second (8700 t/s average), no errors (4 workers, no optimization)
-* [Kore](https://github.com/jorisvink/kore/issues/33): 357 transactions/second (357 t/s average), no errors (https on generic example)
-* Kore http: 4,326 - 11,588 transactions/second (9300 t/s average), no errors (running unsupported http mode)
+| Lib | Trans./sec | Average | Notes |
+|-----|-----------:|--------:|-------|
+| Mongoose | 9,100 - 11,688  | 9,700 | 1-2% error rate |
+| Poco     | 7,120 -  9,473  | 8,300 | no errors |
+| nginx    | 7,142 - 11,843  | 8,700 | no errors (4 workers, no optimization) |
+| [Kore](https://github.com/jorisvink/kore/issues/33) https | 357 | 357 | no errors |
+| Kore http | 4,326 - 11,588 | 9,300 | no errors (unsupported http mode) |
 
 All tested using the same command: `siege -c 100 -r 90 -b http://127.0.0.1:9090/`
 
