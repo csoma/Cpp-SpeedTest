@@ -16,6 +16,8 @@ Throughput after several runs on MacBook Pro laptop (transactions/second - large
 | nginx    | 7,142 | 11,843  | 8,700 | no errors (4 workers, no optimization) |
 | [Kore](https://github.com/jorisvink/kore/issues/33) https | 357 | 357 | 357 | no errors |
 | Kore http | 4,326 | 11,588 | 9,300 | no errors (unsupported http mode) |
+| [CivetWeb](https://github.com/bel2125/civetweb) | 951 | 5,625 | 4,455 | cpp, no errors |
+
 
 All tested using the same command: `siege -c 100 -r 90 -b http://127.0.0.1:9090/`
 
