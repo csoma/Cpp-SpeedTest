@@ -181,6 +181,10 @@ Last Update: 2013-03-19
 http://www.micronovae.com/CSP.html <br>
 Abandoned
 
+### libhttpserver
+
+GPL <br>
+https://github.com/etr/libhttpserver <br>
 
 # Running the tests
 
