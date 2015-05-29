@@ -149,7 +149,7 @@ Last commit: Oct 14, 2013
 ### ngnix module
 
 Since NGINX doesn't have a shared module system, it will have to be recompiled every time we want to run the module.
-Also it ties to app to ngnix.
+Also it ties the app to ngnix.
 
 ### CPoll CPP
 
