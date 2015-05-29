@@ -10,14 +10,14 @@ Written just to get an idea, it is not meant to be scientific.
 Throughput after several runs on MacBook Pro laptop (transactions/second - larger is better):
 
 | Lib | Min | Max | Average | Notes |
-|-----|-----------:|----:|--------:|-------|
+|-----|----:|----:|--------:|-------|
 | Mongoose | 9,100 | 11,688  | 9,700 | 1-2% error rate |
 | Poco     | 7,120 |  9,473  | 8,300 | no errors |
 | nginx    | 7,142 | 11,843  | 8,700 | no errors (4 workers, no optimization) |
 | [Kore](https://github.com/jorisvink/kore/issues/33) https | 357 | 357 | 357 | no errors |
 | Kore http | 4,326 | 11,588 | 9,300 | no errors (unsupported http mode) |
 | [CivetWeb](https://github.com/bel2125/civetweb) | 951 | 5,625 | 4,455 | cpp, no errors |
-
+| CivetWeb | 1,060 | 11,688 | 5,882 | c, no errors |
 
 All tested using the same command: `siege -c 100 -r 90 -b http://127.0.0.1:9090/`
 
@@ -36,6 +36,19 @@ Tested and ruled out several other libraries / frameworks.
 I'm looking for smaller free components and ideally should be production quality on Linux and at least development quality on Mac and Windows.
 
 If you think my assessment below is incorrect, please contact me: csabacsoma at gmail.
+
+### libasyncd and qhttpd
+
+BSD? <br>
+https://github.com/wolkykim/libasyncd <br>
+https://github.com/wolkykim/qhttpd <br>
+Looks promising, about the same speed as CivetWeb. Based on libevent-dev. Linux only.
+
+### whisperlib
+
+BSD? <br>
+https://github.com/cpopescu/whisperlib <br>
+Around 1,500 transaction/second. Possibly Linux only.
 
 ### Facebook Proxygen
 
@@ -167,6 +180,7 @@ Last Update: 2013-03-19
 ? <br>
 http://www.micronovae.com/CSP.html <br>
 Abandoned
+
 
 # Running the tests
 
