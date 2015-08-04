@@ -1,31 +1,69 @@
 # Cpp-SpeedTest
 
-Not maintained!
+Small tests to compare C/C++ web server speeds just to get an idea; it is not meant to be scientific.
 
-Short test to compare C++ web server speeds.
-Written just to get an idea, it is not meant to be scientific.
+<!--
 
-## Results
+## Capabilities
 
-Throughput after several runs on MacBook Pro laptop (transactions/second - larger is better):
+TBA
 
-| Lib | Min | Max | Average | Notes |
-|-----|----:|----:|--------:|-------|
-| Mongoose | 9,100 | 11,688  | 9,700 | 1-2% error rate |
-| Poco     | 7,120 |  9,473  | 8,300 | no errors |
-| nginx    | 7,142 | 11,843  | 8,700 | no errors (4 workers, no optimization) |
-| [Kore](https://github.com/jorisvink/kore/issues/33) https | 357 | 357 | 357 | no errors |
-| Kore http | 4,326 | 11,588 | 9,300 | no errors (unsupported http mode) |
-| [CivetWeb](https://github.com/bel2125/civetweb) | 951 | 5,625 | 4,455 | cpp, no errors |
-| CivetWeb | 1,060 | 11,688 | 5,882 | c, no errors |
+| Library  | Linux | Mac | Win | (1) | (2) | (3) | (4) | (5) | (6) |
+|----------|-------|-----|-----|-----|-----|-----|-----|-----|-----|
+| CivetWeb | Yes   | Yes | Yes |     |     |     |     |     | Yes |
+| Mongoose |       |     |     |     |     |     |     |     |     |
+| Poco     | Yes   | Yes | Yes |     |     |     | Yes |     |     |
+| Nginx    |       |     |     |     | Yes | Yes | Yes | Yes |     |
+|          | Linux | Mac | Win | (1) | (2) | (3) | (4) | (5) | (6) |
 
-All tested using the same command: `siege -c 100 -r 90 -b http://127.0.0.1:9090/`
+1. HTTP/1.0 support
+2. HTTP/1.1 support
+3. Keep alive
+4. Transfer-Encoding: Chunked - needed for larger file transfer behind ngnix
+5. Cache control
+6. WebSocket
 
-## Licenses
+Note: I assume the server will be behind Nginx or similar which handles SPDY, compression and encryption.
 
-* Tests (src folder) - The code is copy&pasted from examples, so it should retain the tested lib's license.
-* Mongoose: MIT https://code.google.com/p/mongoose/
-* Poco: Boost http://pocoproject.org/license.html
+-->
+
+## Speed test results
+
+Tested some of the servers on a Linux.
+Previous tests ran under MacOS X almost an order of magnitude slower. It seems that most of the web servers don't implement kqueue (the epoll equivalent on Mac).
+
+Transaction/second results, larger is better:
+
+| Library                                         | License |     Min |     Max | Average | Notes              |
+|-------------------------------------------------|---------|--------:|--------:|--------:|--------------------|
+| [CivetWeb](https://github.com/bel2125/civetweb) | MIT     |  21,428 |  27,272 |  25,714 | C, No errors       |
+| [Mongoose](https://github.com/cesanta/mongoose) | GPL v2  |  21,428 |  27,272 |  25,714 | C, No errors       |
+| nginx (stock)                                   | 2c BSD  |  16,981 |  23,076 |  20,000 | C, No errors       |
+| CivetWeb C++ wrap                               | MIT     |   9,473 |  13,235 |  12,500 | C++, No errors     |
+| [POCO](https://github.com/pocoproject/poco)     | Boost   |   5,769 |  14,285 |   6,716 | C++, No errors     |
+
+### Command
+
+Ran 40 times:
+
+```
+siege -q -b -c 100 -r 90 --log=/dev/null http://127.0.0.1:8080/
+```
+
+### Test apps
+
+- CivetWeb C: hello.c on `http://127.0.0.1:8080/`
+- CivetWeb C++: embedded_cpp.cpp on `http://127.0.0.1:8081/example`
+- Mongoose: hello_world.c on `http://127.0.0.1:8080/`
+- [POCO](http://pocoproject.org/slides/200-Network.pdf): HTTPTimeServer.cpp on `http://127.0.0.1:9980/`
+```
+add-apt-repository ppa:george-edison55/cmake-3.x
+apt-get update
+apt-get upgrade cmake
+./build_cmake.sh -DENABLE_TESTS=ON ..
+cmake-build/bin/HTTPLoadTest
+```
+- NGinx: first page after disabling log and gzip on `http://127.0.0.1/`
 
 ## Other libraries
 
@@ -156,7 +194,6 @@ Also it ties the app to ngnix.
 GPL <br>
 http://sourceforge.net/projects/cpollcppsp/
 
-
 ### Ulib
 
 GPL <br>
@@ -174,7 +211,6 @@ GPL <br>
 http://sourceforge.net/projects/ppcpp/ <br>
 Last Update: 2013-03-19
 
-
 ### CSP
 
 ? <br>
@@ -186,64 +222,7 @@ Abandoned
 GPL <br>
 https://github.com/etr/libhttpserver <br>
 
-# Running the tests
-
-
-## Mac OS X
-
-Requirements:
-
-* Recommended: [Homebrew](http://mxcl.github.io/homebrew/)
-* XCode 4.5+ with command line tools (Preferences / Downloads / Components - Install)
-* git: `brew install git` or [GitHub for Mac](http://mac.github.com/)
-* CMake: `brew install cmake`
-* Siege: `brew install siege`
-
-Steps:
-
-* Clone the repository: `git clone https://github.com/csoma/Cpp-SpeedTest.git`
-* Run "start-XCode": `cd Cpp-SpeedTest; ./start-XCode`
-* Select the desired target (Test-Poco, Test-Mongoose)
-* Click Run
-* Recommended: reduce socket time-out to 1sec (see the "run-siege" file)
-* From command line start "run-siege"
-
-## Linux
-
-Requirements:
-
-* Package installer: Ubuntu: `apt-get`, CentOS/RedHat: `yum`
-* gcc version 4.7 or later (install instructions below)
-* git: `apt-get install git`
-* CMake: `apt-get install cmake`
-* Siege: `apt-get install siege`
-
-Steps:
-
-* Clone the repository: `git clone https://github.com/csoma/Cpp-SpeedTest.git`
-* Run "build-with-gcc": `cd Cpp-SpeedTest; ./build-with-gcc`
-* Launch the desired server, for example `bin/Test-Poco`
-* Start "run-siege" on a different terminal
-
-### For old Linux distributions
-
-Installing GCC 4.7 or later for C++11 features:
-
-* Install GCC: <code>apt-get install cmake make gcc g++ libc6-dev libc-dev-bin libpq-dev</code>
-* Check installed version: `gcc --version`
-* When needed, install [gcc-snapshot](http://askubuntu.com/questions/61254/how-to-update-gcc-to-the-latest-versionin-this-case-4-7-in-ubuntu-10-04) for a newer version of gcc: <pre>
-sudo apt-get install gcc-snapshot
-cd /usr/bin
-mv gcc gcc-old
-mv c++ c++-old
-mv cpp cpp-old
-ln -s /usr/lib/gcc-snapshot/bin/gcc /usr/bin/gcc
-ln -s /usr/lib/gcc-snapshot/bin/c++ /usr/bin/c++
-ln -s /usr/lib/gcc-snapshot/bin/cpp /usr/bin/cpp</pre>
-   * You might need to [upgrade Linux](http://www.unixmen.com/how-to-upgrade-from-ubuntu-1004-1010-1104-to-ubuntu-1110-oneiric-ocelot-desktop-a-server/) if you have older than Ubuntu 12.04
-   * More details about C++11 support in gcc: http://kjellkod.wordpress.com/2012/06/02/g2log-now-with-mainstream-c11-implementation/#more-589
-
-# See also
+## See also
 
 * Wikipedia: http://en.wikipedia.org/wiki/Comparison_of_web_application_frameworks
 * C++ web frameworks (read the comments too): http://www.baryudin.com/articles/software/c-plus-plus-web-development-framework.html
