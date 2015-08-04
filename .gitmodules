@@ -1,6 +1,0 @@
-[submodule "component/CppDB"]
-	path = component/CppDB
-	url = https://github.com/csoma/CppDB.git
-[submodule "component/Poco"]
-	path = component/Poco
-	url = https://github.com/pocoproject/poco.git
