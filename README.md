@@ -14,6 +14,7 @@ TBA
 | Mongoose |       |     |     |     |     |     |     |     |     |
 | Poco     | Yes   | Yes | Yes |     |     |     | Yes |     |     |
 | Nginx    |       |     |     |     | Yes | Yes | Yes | Yes |     |
+| Proxygen |       |     |     |     |     |     |     |     |     |
 |          | Linux | Mac | Win | (1) | (2) | (3) | (4) | (5) | (6) |
 
 1. HTTP/1.0 support
@@ -39,8 +40,10 @@ Transaction/second results, larger is better:
 | [CivetWeb](https://github.com/bel2125/civetweb) | MIT     |  21,428 |  27,272 |  25,714 | C, No errors       |
 | [Mongoose](https://github.com/cesanta/mongoose) | GPL v2  |  21,428 |  27,272 |  25,714 | C, No errors       |
 | nginx (stock)                                   | 2c BSD  |  16,981 |  23,076 |  20,000 | C, No errors       |
+| [Proxygen](https://github.com/facebook/proxygen)| BSD + FB|  10,344 |  16,667 |  11,392 | C++, No errors     |
 | CivetWeb C++ wrap                               | MIT     |   9,473 |  13,235 |  12,500 | C++, No errors     |
 | [POCO](https://github.com/pocoproject/poco)     | Boost   |   5,769 |  14,285 |   6,716 | C++, No errors     |
+| [Whisperlib](https://github.com/cpopescu/whisperlib) | BSD? | 5,696 |   6,250 |   6,040 | C, No errors       |
 
 ### Command
 
@@ -64,6 +67,7 @@ apt-get upgrade cmake
 cmake-build/bin/HTTPLoadTest
 ```
 - NGinx: first page after disabling log and gzip on `http://127.0.0.1/`
+- Whisperlib started with `./http_server_test -base_dir=empty -port=8080`
 
 ## Other libraries
 
@@ -86,13 +90,13 @@ Looks promising, about the same speed as CivetWeb. Based on libevent-dev. Linux 
 
 BSD? <br>
 https://github.com/cpopescu/whisperlib <br>
-Around 1,500 transaction/second. Possibly Linux only.
 
 ### Facebook Proxygen
 
 BSD + [Facebook blanket patent protection](https://github.com/facebook/proxygen/blob/master/PATENTS) (see [discussion](https://news.ycombinator.com/item?id=8985541)) <br>
 https://github.com/facebook/proxygen <br>
-Depends on Boost 1.51+, FB thrift and a long slew of other libraries (I counted 86).
+Depends on Boost 1.51+, wangle, folly and a long slew of other libraries. deps.sh downloaded over 140 packages.<br>
+It uses https://github.com/joyent/http-parser
 
 ### libonion
 
